@@ -29,8 +29,10 @@ Converted code might need some editing but should be a good start.
 
 ## Release Notes
 
-### 0.0.2
+### 0.0.4
+Added icon
 
+### 0.0.3
 Initial release of css2react
 
 **Enjoy!**

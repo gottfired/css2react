@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="299.26" height="299.26" enable-background="new 0 0 299.26 339.88" viewBox="0 0 299.26 339.88" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <linearGradient id="h" x1="161.42" x2="83.68" y1="91.502" y2="123.7" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#099" offset="0"/>
+   <stop stop-color="#009797" offset=".5149"/>
+   <stop stop-color="#009090" offset=".7003"/>
+   <stop stop-color="#008585" offset=".8325"/>
+   <stop stop-color="#007474" offset=".9387"/>
+   <stop stop-color="#066" offset="1"/>
+  </linearGradient>
+  <linearGradient id="g" x1="107.34" x2="74.81" y1="100.46" y2="178.99" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#06c" offset="0"/>
+   <stop stop-color="#0064ca" offset=".5149"/>
+   <stop stop-color="#005dc3" offset=".7003"/>
+   <stop stop-color="#0052b8" offset=".8325"/>
+   <stop stop-color="#0041a7" offset=".9387"/>
+   <stop stop-color="#039" offset="1"/>
+  </linearGradient>
+  <linearGradient id="f" x1="86.549" x2="164.52" y1="204.21" y2="235.56" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#c33" offset="0"/>
+   <stop stop-color="#ca3131" offset=".5149"/>
+   <stop stop-color="#c32a2a" offset=".7003"/>
+   <stop stop-color="#b81f1f" offset=".8325"/>
+   <stop stop-color="#a70e0e" offset=".9387"/>
+   <stop stop-color="#900" offset="1"/>
+  </linearGradient>
+  <linearGradient id="e" x1="134.61" x2="209.19" y1="233.06" y2="202.56" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#f93" offset="0"/>
+   <stop stop-color="#fd9731" offset=".5149"/>
+   <stop stop-color="#f6902a" offset=".7003"/>
+   <stop stop-color="#eb851f" offset=".8325"/>
+   <stop stop-color="#da740e" offset=".9387"/>
+   <stop stop-color="#c60" offset="1"/>
+  </linearGradient>
+  <linearGradient id="d" x1="208.17" x2="123.71" y1="122.97" y2="87.988" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#093" offset="0"/>
+   <stop stop-color="#009731" offset=".5149"/>
+   <stop stop-color="#00902a" offset=".7003"/>
+   <stop stop-color="#00851f" offset=".8325"/>
+   <stop stop-color="#00740e" offset=".9387"/>
+   <stop stop-color="#060" offset="1"/>
+  </linearGradient>
+  <linearGradient id="c" x1="186.36" x2="219.41" y1="222.75" y2="147.33" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#fc0" offset="0"/>
+   <stop stop-color="#fdca00" offset=".5149"/>
+   <stop stop-color="#f6c300" offset=".7003"/>
+   <stop stop-color="#ebb800" offset=".8325"/>
+   <stop stop-color="#daa700" offset=".9387"/>
+   <stop stop-color="#c90" offset="1"/>
+  </linearGradient>
+  <linearGradient id="b" x1="218.01" x2="187.5" y1="177.11" y2="103.38" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#9c3" offset="0"/>
+   <stop stop-color="#97ca31" offset=".5149"/>
+   <stop stop-color="#90c32a" offset=".7003"/>
+   <stop stop-color="#85b81f" offset=".8325"/>
+   <stop stop-color="#74a70e" offset=".9387"/>
+   <stop stop-color="#690" offset="1"/>
+  </linearGradient>
+  <linearGradient id="a" x1="75.962" x2="107.32" y1="147.9" y2="226.71" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#939" offset="0"/>
+   <stop stop-color="#973197" offset=".5149"/>
+   <stop stop-color="#902a90" offset=".7003"/>
+   <stop stop-color="#851f85" offset=".8325"/>
+   <stop stop-color="#740e74" offset=".9387"/>
+   <stop stop-color="#606" offset="1"/>
+  </linearGradient>
+ </defs>
+ <path d="m108.54 124.62-15.852 38.268-22.417-76.538 76.538-31.702z" fill="url(#h)"/>
+ <path d="m92.688 162.89 15.853 38.268-69.972-38.268 31.702-76.538z" fill="url(#g)"/>
+ <path d="m185.08 201.15-38.269 15.851-76.538 22.417 76.538 31.703z" fill="url(#f)"/>
+ <path d="m200.93 162.89-15.85 38.267-38.269 69.971 76.536-31.702z" fill="url(#e)"/>
+ <path d="m108.54 124.62 38.271-15.852 76.535-22.417-76.537-31.703z" fill="url(#d)"/>
+ <path d="m200.93 162.89-15.851-38.27 69.969 38.269-31.702 76.538z" fill="url(#c)"/>
+ <path d="m185.08 124.62-38.267-15.85 76.535-22.417 31.701 76.536z" fill="url(#b)"/>
+ <path d="m146.81 217-38.268-15.851-69.972-38.268 31.702 76.536z" fill="url(#a)"/>
+</svg>

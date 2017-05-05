@@ -2,8 +2,14 @@
     "name": "css2react",
     "displayName": "css2react",
     "description": "Convert selection between CSS and React inline style syntax. Works both ways.",
-    "version": "0.0.2",
+    "icon": "images/icon.svg",
+    "version": "0.0.3",
     "publisher": "gottfired",
+    "homepage": "https://github.com/gottfired/css2react/blob/master/README.md",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/gottfired/css2react.git"
+    },
     "engines": {
         "vscode": "^1.11.0"
     },
