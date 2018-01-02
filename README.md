@@ -29,6 +29,9 @@ Converted code might need some editing but should be a good start.
 
 ## Release Notes
 
+### 0.0.6
+png icon
+
 ### 0.0.5
 Bugfix for CSS containing commas
 
