@@ -33,9 +33,7 @@ function splitEntry(entry: string): Array<string> {
  */
 function isCss(text: string): boolean {
     const trimmed = text.trim();
-    if (trimmed.indexOf(",") >= 0 ||
-        trimmed.indexOf("'") >= 0 ||
-        trimmed.indexOf('"') >= 0) {
+    if (trimmed.indexOf("'") >= 0 || trimmed.indexOf('"') >= 0) {
         return false;
     }
 
