@@ -7,7 +7,8 @@ import * as vscode from 'vscode';
 // - Allow selection to contain non CSS parts
 // - Check if variables can be converted to ${variable} syntax
 
-
+// How to test: Simply run debug from VSCode
+// How to publish: run vsce publish -p PERSONAL_ACCESS_TOKEN from here: https://gottfired.visualstudio.com/_details/security/tokens
 
 
 function dashToCamelCase(text: string): string {
@@ -186,7 +187,49 @@ function isUnitlessProperty(property: string): boolean {
         "zoom"].indexOf(property.trim()) !== -1;
 }
 
+/**
+ * Split react style at commas, but not inside stuff like "rgba(a,r,g,b)"
+ * Taken from here: https://stackoverflow.com/a/31955570/677910
+ * @param text 
+ */
+function splitReact(str: string) {
 
+    //split the str first  
+    //then merge the elments between two double quotes  
+    var delimiter = ',';
+    var quotes = '"';
+    var elements = str.split(delimiter);
+    var newElements = [];
+    for (var i = 0; i < elements.length; ++i) {
+        if (elements[i].indexOf(quotes) >= 0) {//the left double quotes is found  
+            var indexOfRightQuotes = -1;
+            var tmp = elements[i];
+            //find the right double quotes  
+            for (var j = i + 1; j < elements.length; ++j) {
+                if (elements[j].indexOf(quotes) >= 0) {
+                    indexOfRightQuotes = j;
+                }
+            }
+            //found the right double quotes  
+            //merge all the elements between double quotes  
+            if (-1 != indexOfRightQuotes) {
+                for (var j = i + 1; j <= indexOfRightQuotes; ++j) {
+                    tmp = tmp + delimiter + elements[j];
+                }
+                newElements.push(tmp);
+                i = indexOfRightQuotes;
+            }
+            else { //right double quotes is not found  
+                newElements.push(elements[i]);
+            }
+        }
+        else {//no left double quotes is found  
+            newElements.push(elements[i]);
+        }
+    }
+
+    return newElements;
+}
 
 /**
  * Convert from react to css style
@@ -194,7 +237,12 @@ function isUnitlessProperty(property: string): boolean {
 function reactToCss(text: string): string {
     const [prefix, middle, postfix] = splitPreMiddlePost(text, ",");
 
-    const entries = middle.split(",");
+    console.log("middle", middle);
+
+    const entries = splitReact(middle);// middle.split(",");
+
+    console.log("entries", entries);
+
     let converted = entries
         .map(entry => {
             // Remove all quotes
