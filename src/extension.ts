@@ -4,7 +4,6 @@
 import * as vscode from 'vscode';
 
 // TODO:
-// - Allow selection to contain non CSS parts
 // - Check if variables can be converted to ${variable} syntax
 
 // How to test: Simply run debug from VSCode
@@ -20,7 +19,7 @@ function camelCaseToDash(text: string): string {
 }
 
 /**
- * Splite a line like "minWidth: bla ? 10 : 20" into
+ * Split a line like "minWidth: bla ? 10 : 20" into
  * ["minWidth", "bla ? 10 : 20"]
  */
 function splitEntry(entry: string): Array<string> {
@@ -88,7 +87,8 @@ function splitPreMiddlePost(text: string, separator: string): Array<string> {
                 middleLines.push(line);
             }
         } else if (postfixLines.length === 0) {
-            if (line.indexOf(":") >= 0) {
+            // Line contains colon or is only whitespace -> add to middle
+            if (line.indexOf(":") >= 0 || line.trim() === "") {
                 middleLines.push(line);
             } else {
                 postfixLines.push(line);
@@ -122,6 +122,8 @@ function joinConditional(strings: Array<string>): string {
 function cssToReact(text: string): string {
 
     const [prefix, middle, postfix] = splitPreMiddlePost(text, ";");
+
+    console.log("### middle", middle);
 
     const entries = middle.split(";");
     const converted = entries
@@ -193,42 +195,17 @@ function isUnitlessProperty(property: string): boolean {
  * @param text 
  */
 function splitReact(str: string) {
-
-    //split the str first  
-    //then merge the elments between two double quotes  
-    var delimiter = ',';
-    var quotes = '"';
-    var elements = str.split(delimiter);
-    var newElements = [];
-    for (var i = 0; i < elements.length; ++i) {
-        if (elements[i].indexOf(quotes) >= 0) {//the left double quotes is found  
-            var indexOfRightQuotes = -1;
-            var tmp = elements[i];
-            //find the right double quotes  
-            for (var j = i + 1; j < elements.length; ++j) {
-                if (elements[j].indexOf(quotes) >= 0) {
-                    indexOfRightQuotes = j;
-                }
-            }
-            //found the right double quotes  
-            //merge all the elements between double quotes  
-            if (-1 != indexOfRightQuotes) {
-                for (var j = i + 1; j <= indexOfRightQuotes; ++j) {
-                    tmp = tmp + delimiter + elements[j];
-                }
-                newElements.push(tmp);
-                i = indexOfRightQuotes;
-            }
-            else { //right double quotes is not found  
-                newElements.push(elements[i]);
-            }
+    return str.split(',').reduce((accum, curr) => {
+        if (accum.isConcatting) {
+            accum.soFar[accum.soFar.length - 1] += ',' + curr;
+        } else {
+            accum.soFar.push(curr);
         }
-        else {//no left double quotes is found  
-            newElements.push(elements[i]);
+        if (curr.split('"').length % 2 == 0) {
+            accum.isConcatting = !accum.isConcatting;
         }
-    }
-
-    return newElements;
+        return accum;
+    }, { soFar: [], isConcatting: false }).soFar;
 }
 
 /**
