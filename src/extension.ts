@@ -196,14 +196,17 @@ function isUnitlessProperty(property: string): boolean {
  */
 function splitReact(str: string) {
     return str.split(',').reduce((accum, curr) => {
+
         if (accum.isConcatting) {
             accum.soFar[accum.soFar.length - 1] += ',' + curr;
         } else {
             accum.soFar.push(curr);
         }
+
         if (curr.split('"').length % 2 == 0) {
             accum.isConcatting = !accum.isConcatting;
         }
+
         return accum;
     }, { soFar: [], isConcatting: false }).soFar;
 }

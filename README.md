@@ -29,6 +29,10 @@ Converted code might need some editing but should be a good start.
 
 ## Release Notes
 
+### 0.0.7
+fix quotes parsing
+allow empty lines in selection
+
 ### 0.0.6
 png icon
 
