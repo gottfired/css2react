@@ -34,7 +34,18 @@
                 "mac": "cmd+alt+c",
                 "when": "editorTextFocus"
             }
-        ]
+        ],
+        "configuration": {
+            "type": "object",
+            "title": "CSS to React configuration",
+            "properties": {
+                "extension.css2react.quotes": {
+                    "type": "boolean",
+                    "default": false,
+                    "markdownDescription": "Use single instead of double quotes"
+                }
+            }
+        }
     },
     "scripts": {
         "vscode:prepublish": "tsc -p ./",

@@ -279,7 +279,18 @@ export function activate(context: vscode.ExtensionContext) {
     // This line of code will only be executed once when your extension is activated
     console.log('Congratulations, your extension "css2react" is now active!');
 
-    console.log("### config", vscode.workspace.getConfiguration("workbench"));
+    console.log(
+        "### config",
+        JSON.stringify(vscode.workspace.getConfiguration("css2react"), null, 4)
+    );
+    console.log(
+        "### config",
+        JSON.stringify(
+            vscode.workspace.getConfiguration("extension.css2react"),
+            null,
+            4
+        )
+    );
 
     // The command has been defined in the package.json file
     // Now provide the implementation of the command with  registerCommand
