@@ -2,7 +2,7 @@
 
 ## Features
 
-Convert the current selection between CSS and React's inline style syntax. 
+Convert the current selection between CSS and React's inline style syntax.
 
 ## See It in Action
 
@@ -13,6 +13,7 @@ Convert the current selection between CSS and React's inline style syntax.
 Select the lines you want to convert and press Cmd+Option+c on Mac (Ctrl+Alt+c on Windows). Conversion works both ways, CSS to React inline and back.
 
 ## Customization
+
 You want to use a different shortcut? No problem. Remap it by putting this into your keybindings.json
 
 ```
@@ -29,20 +30,29 @@ Converted code might need some editing but should be a good start.
 
 ## Release Notes
 
+### 0.0.8
+
+improved CSS detection
+
 ### 0.0.7
-fix quotes parsing
+
+fix quotes parsing  
 allow empty lines in selection
 
 ### 0.0.6
+
 png icon
 
 ### 0.0.5
+
 Bugfix for CSS containing commas
 
 ### 0.0.4
+
 Added icon
 
 ### 0.0.3
+
 Initial release of css2react
 
 **Enjoy!**

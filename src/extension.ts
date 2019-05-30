@@ -1,21 +1,23 @@
-'use strict';
+"use strict";
+
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
-import * as vscode from 'vscode';
+import * as vscode from "vscode";
 
 // TODO:
 // - Check if variables can be converted to ${variable} syntax
 
 // How to test: Simply run debug from VSCode
 // How to publish: run vsce publish -p PERSONAL_ACCESS_TOKEN from here: https://gottfired.visualstudio.com/_details/security/tokens
-
+// When generating token select full access AND ORGANIZATION "ALL ACCESSIBLE ACCOUNTS"
+// t3g2zttygmvuf6fpljisbcmpcisrcaok2as5eoneik75ld6plxpq
 
 function dashToCamelCase(text: string): string {
     return text.replace(/-([a-z])/g, g => g[1].toUpperCase());
 }
 
 function camelCaseToDash(text: string): string {
-    return text.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+    return text.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase();
 }
 
 /**
@@ -32,13 +34,10 @@ function splitEntry(entry: string): Array<string> {
  * Try to determine if text is CSS or React inline style
  */
 function isCss(text: string): boolean {
-    const trimmed = text.trim();
-    if (trimmed.indexOf("'") >= 0 || trimmed.indexOf('"') >= 0) {
-        return false;
-    }
-
     // Split into lines
     const lines = text.split(/\r?\n/);
+
+    // Only consider lines with a ":", others are not considered styles
     const entries = lines.filter(line => line.indexOf(":") >= 0);
     if (entries.length === 0) {
         return false;
@@ -46,11 +45,14 @@ function isCss(text: string): boolean {
 
     // Check if there is a camel case key
     const [left, right] = splitEntry(entries[0]);
+
     if (left.indexOf("-") >= 0) {
+        // Contains a dash -> it's css
         return true;
     }
 
     if (camelCaseToDash(left).indexOf("-") >= 0) {
+        // This was camel case -> it's react
         return false;
     }
 
@@ -69,7 +71,7 @@ function joinLine(left: string, right: string) {
 }
 
 /**
- * Split selection into part before the actual style entries, the style entries 
+ * Split selection into part before the actual style entries, the style entries
  * and the stuff after. So users don't have to be that specific with their selection
  */
 function splitPreMiddlePost(text: string, separator: string): Array<string> {
@@ -80,8 +82,12 @@ function splitPreMiddlePost(text: string, separator: string): Array<string> {
     lines.forEach((line, index) => {
         if (middleLines.length === 0) {
             // A style line must contain : and , or ; except for the last one in inline styles
-            if (line.indexOf(":") < 0 ||
-                (index < line.length - 1 && line.indexOf(separator) < 0 && separator === ",")) {
+            if (
+                line.indexOf(":") < 0 ||
+                (index < line.length - 1 &&
+                    line.indexOf(separator) < 0 &&
+                    separator === ",")
+            ) {
                 prefixLines.push(line);
             } else {
                 middleLines.push(line);
@@ -109,18 +115,15 @@ function splitPreMiddlePost(text: string, separator: string): Array<string> {
     return [prefix, middle, postfix];
 }
 
-
 function joinConditional(strings: Array<string>): string {
     const result = strings.filter(s => s != null && s.length > 0);
     return result.join("\n");
 }
 
-
 /**
  * Convert from css to react style
  */
 function cssToReact(text: string): string {
-
     const [prefix, middle, postfix] = splitPreMiddlePost(text, ";");
 
     console.log("### middle", middle);
@@ -139,7 +142,7 @@ function cssToReact(text: string): string {
 
             // Add quotes on right if not a number
             if (isNaN(Number(right))) {
-                right = ` "${right.trim()}"`
+                right = ` "${right.trim()}"`;
             }
 
             return joinLine(left, right);
@@ -149,66 +152,71 @@ function cssToReact(text: string): string {
     return joinConditional([prefix, converted, postfix]);
 }
 
-
 /**
  * Right trim a string
  */
 function rtrim(text: string): string {
-    return text.replace(/~+$/, '');
+    return text.replace(/~+$/, "");
 }
 
 /**
  * Check if unitless CSS property. See here: https://react-cn.github.io/react/tips/style-props-value-px.html
  */
 function isUnitlessProperty(property: string): boolean {
-    return ["animationIterationCount",
-        "boxFlex",
-        "boxFlexGroup",
-        "boxOrdinalGroup",
-        "columnCount",
-        "fillOpacity",
-        "flex",
-        "flexGrow",
-        "flexPositive",
-        "flexShrink",
-        "flexNegative",
-        "flexOrder",
-        "fontWeight",
-        "lineClamp",
-        "lineHeight",
-        "opacity",
-        "order",
-        "orphans",
-        "stopOpacity",
-        "strokeDashoffset",
-        "strokeOpacity",
-        "strokeWidth",
-        "tabSize",
-        "widows",
-        "zIndex",
-        "zoom"].indexOf(property.trim()) !== -1;
+    return (
+        [
+            "animationIterationCount",
+            "boxFlex",
+            "boxFlexGroup",
+            "boxOrdinalGroup",
+            "columnCount",
+            "fillOpacity",
+            "flex",
+            "flexGrow",
+            "flexPositive",
+            "flexShrink",
+            "flexNegative",
+            "flexOrder",
+            "fontWeight",
+            "lineClamp",
+            "lineHeight",
+            "opacity",
+            "order",
+            "orphans",
+            "stopOpacity",
+            "strokeDashoffset",
+            "strokeOpacity",
+            "strokeWidth",
+            "tabSize",
+            "widows",
+            "zIndex",
+            "zoom"
+        ].indexOf(property.trim()) !== -1
+    );
 }
 
 /**
  * Split react style at commas, but not inside stuff like "rgba(a,r,g,b)"
  * Taken from here: https://stackoverflow.com/a/31955570/677910
- * @param text 
+ * @param text
  */
 function splitReact(str: string) {
-    return str.split(',').reduce((accum, curr) => {
+    return str.split(",").reduce(
+        (accum, curr) => {
+            if (accum.isConcatting) {
+                accum.soFar[accum.soFar.length - 1] += "," + curr;
+            } else {
+                accum.soFar.push(curr);
+            }
 
-        if (accum.isConcatting) {
-            accum.soFar[accum.soFar.length - 1] += ',' + curr;
-        } else {
-            accum.soFar.push(curr);
-        }
+            if (curr.split('"').length % 2 == 0) {
+                accum.isConcatting = !accum.isConcatting;
+            }
 
-        if (curr.split('"').length % 2 == 0) {
-            accum.isConcatting = !accum.isConcatting;
-        }
-
-        return accum;
-    }, { soFar: [], isConcatting: false }).soFar;
+            return accum;
+        },
+        { soFar: [], isConcatting: false }
+    ).soFar;
 }
 
 /**
@@ -219,7 +227,7 @@ function reactToCss(text: string): string {
 
     console.log("middle", middle);
 
-    const entries = splitReact(middle);// middle.split(",");
+    const entries = splitReact(middle); // middle.split(",");
 
     console.log("entries", entries);
 
@@ -233,9 +241,8 @@ function reactToCss(text: string): string {
             let [left, right] = splitEntry(entry);
 
             // Add default px. MUST be done before camel case conversion
-            if (!isNaN(Number(right)) &&
-                !isUnitlessProperty(left)) {
-                right = rtrim(right) + "px"
+            if (!isNaN(Number(right)) && !isUnitlessProperty(left)) {
+                right = rtrim(right) + "px";
             }
 
             left = camelCaseToDash(left);
@@ -265,40 +272,42 @@ function convert(text: string): string {
     }
 }
 
-
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-
     // Use the console to output diagnostic information (console.log) and errors (console.error)
     // This line of code will only be executed once when your extension is activated
     console.log('Congratulations, your extension "css2react" is now active!');
 
+    console.log("### config", vscode.workspace.getConfiguration("workbench"));
+
     // The command has been defined in the package.json file
     // Now provide the implementation of the command with  registerCommand
     // The commandId parameter must match the command field in package.json
-    let disposable = vscode.commands.registerCommand('extension.css2react', () => {
-        // The code you place here will be executed every time your command is executed
+    let disposable = vscode.commands.registerCommand(
+        "extension.css2react",
+        () => {
+            // The code you place here will be executed every time your command is executed
 
-        var editor = vscode.window.activeTextEditor;
-        if (!editor) {
-            // No open text editor
-            return;
+            var editor = vscode.window.activeTextEditor;
+            if (!editor) {
+                // No open text editor
+                return;
+            }
+
+            // Get text from selection
+            var selection = editor.selection;
+            var text = editor.document.getText(selection);
+
+            // Replace selection with converted text
+            editor.edit(builder => {
+                builder.replace(selection, convert(text));
+            });
         }
-
-        // Get text from selection
-        var selection = editor.selection;
-        var text = editor.document.getText(selection);
-
-        // Replace selection with converted text
-        editor.edit(builder => {
-            builder.replace(selection, convert(text));
-        });
-    });
+    );
 
     context.subscriptions.push(disposable);
 }
 
 // this method is called when your extension is deactivated
-export function deactivate() {
-}
+export function deactivate() {}
