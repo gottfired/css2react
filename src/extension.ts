@@ -10,7 +10,6 @@ import * as vscode from "vscode";
 // How to test: Simply run debug from VSCode
 // How to publish: run vsce publish -p PERSONAL_ACCESS_TOKEN from here: https://gottfired.visualstudio.com/_details/security/tokens
 // When generating token select full access AND ORGANIZATION "ALL ACCESSIBLE ACCOUNTS"
-// t3g2zttygmvuf6fpljisbcmpcisrcaok2as5eoneik75ld6plxpq
 
 function getQuotes() {
     const config = vscode.workspace.getConfiguration("css2react");
