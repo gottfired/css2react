@@ -28,32 +28,4 @@ You want to use a different shortcut? No problem. Remap it by putting this into 
 
 Converted code might need some editing but should be a good start.
 
-## Release Notes
-
-### 0.0.8
-
-improved CSS detection  
-added setting for single quotes
-
-### 0.0.7
-
-fix quotes parsing  
-allow empty lines in selection
-
-### 0.0.6
-
-png icon
-
-### 0.0.5
-
-Bugfix for CSS containing commas
-
-### 0.0.4
-
-Added icon
-
-### 0.0.3
-
-Initial release of css2react
-
 **Enjoy!**
