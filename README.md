@@ -32,7 +32,8 @@ Converted code might need some editing but should be a good start.
 
 ### 0.0.8
 
-improved CSS detection
+improved CSS detection  
+added setting for single quotes
 
 ### 0.0.7
 

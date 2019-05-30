@@ -12,6 +12,11 @@ import * as vscode from "vscode";
 // When generating token select full access AND ORGANIZATION "ALL ACCESSIBLE ACCOUNTS"
 // t3g2zttygmvuf6fpljisbcmpcisrcaok2as5eoneik75ld6plxpq
 
+function getQuotes() {
+    const config = vscode.workspace.getConfiguration("css2react");
+    return config.singleQuotes ? "'" : '"';
+}
+
 function dashToCamelCase(text: string): string {
     return text.replace(/-([a-z])/g, g => g[1].toUpperCase());
 }
@@ -128,6 +133,7 @@ function cssToReact(text: string): string {
 
     console.log("### middle", middle);
 
+    const QUOTES = getQuotes();
     const entries = middle.split(";");
     const converted = entries
         .map(entry => {
@@ -142,7 +148,7 @@ function cssToReact(text: string): string {
 
             // Add quotes on right if not a number
             if (isNaN(Number(right))) {
-                right = ` "${right.trim()}"`;
+                right = ` ${QUOTES}${right.trim()}${QUOTES}`;
             }
 
             return joinLine(left, right);
@@ -201,6 +207,7 @@ function isUnitlessProperty(property: string): boolean {
  * @param text
  */
 function splitReact(str: string) {
+    const QUOTES = getQuotes();
     return str.split(",").reduce(
         (accum, curr) => {
             if (accum.isConcatting) {
@@ -209,7 +216,7 @@ function splitReact(str: string) {
                 accum.soFar.push(curr);
             }
 
-            if (curr.split('"').length % 2 == 0) {
+            if (curr.split(QUOTES).length % 2 == 0) {
                 accum.isConcatting = !accum.isConcatting;
             }
 
@@ -278,19 +285,6 @@ export function activate(context: vscode.ExtensionContext) {
     // Use the console to output diagnostic information (console.log) and errors (console.error)
     // This line of code will only be executed once when your extension is activated
     console.log('Congratulations, your extension "css2react" is now active!');
-
-    console.log(
-        "### config",
-        JSON.stringify(vscode.workspace.getConfiguration("css2react"), null, 4)
-    );
-    console.log(
-        "### config",
-        JSON.stringify(
-            vscode.workspace.getConfiguration("extension.css2react"),
-            null,
-            4
-        )
-    );
 
     // The command has been defined in the package.json file
     // Now provide the implementation of the command with  registerCommand
