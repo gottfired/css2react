@@ -6,6 +6,7 @@ import * as vscode from "vscode";
 
 // TODO:
 // - Check if variables can be converted to ${variable} syntax
+// - TODO handle CSS containg quotes
 
 // How to test: Simply run debug from VSCode
 // How to publish: run vsce publish -p PERSONAL_ACCESS_TOKEN from here: https://gottfired.visualstudio.com/_details/security/tokens
@@ -47,17 +48,29 @@ function isCss(text: string): boolean {
         return false;
     }
 
-    // Check if there is a camel case key
-    const [left, right] = splitEntry(entries[0]);
+    for (let entry of entries) {
+        // Check if there is a camel case or kebap case key
+        const [left, right] = splitEntry(entry);
 
-    if (left.indexOf("-") >= 0) {
-        // Contains a dash -> it's css
-        return true;
-    }
+        if (left.indexOf("-") >= 0) {
+            // Contains a dash -> it's css
+            return true;
+        }
 
-    if (camelCaseToDash(left).indexOf("-") >= 0) {
-        // This was camel case -> it's react
-        return false;
+        if (camelCaseToDash(left).indexOf("-") >= 0) {
+            // This was camel case -> it's react
+            return false;
+        }
+
+        if (right.trim().slice(-1) === ";") {
+            // Last character in line is ; -> assume it's css
+            return true;
+        }
+
+        if (right.trim().slice(-1) === ",") {
+            // Last character in line is , -> assume it's react
+            return false;
+        }
     }
 
     return true;
