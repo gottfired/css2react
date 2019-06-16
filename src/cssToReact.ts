@@ -31,9 +31,13 @@ export function cssToReact(text: string): string {
                 right = right.slice(0, -2);
             }
 
+            // Trim and remove quotes (Quotes are only a CSS recommendation)
+            right = right.trim();
+            right = right.replace(/[\"']/g, "");
+
             // Add quotes on right if not a number
             if (isNaN(Number(right))) {
-                right = ` ${QUOTES}${right.trim()}${QUOTES}`;
+                right = ` ${QUOTES}${right}${QUOTES}`;
             }
 
             return joinLine(left, right);
