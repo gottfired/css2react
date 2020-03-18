@@ -3,7 +3,7 @@
     "displayName": "css2react",
     "description": "Convert selection between CSS and React inline style syntax. Works both ways.",
     "icon": "images/icon.png",
-    "version": "0.0.9",
+    "version": "1.0.0",
     "publisher": "gottfired",
     "homepage": "https://github.com/gottfired/css2react/blob/master/README.md",
     "license": "MIT",
