@@ -1,5 +1,9 @@
 # Change Log
 
+### 1.0.0
+
+fixed loading bug in linux
+
 ### 0.0.9
 
 remove optional quotes when going from CSS to React

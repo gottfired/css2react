@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
-import { reactToCss } from "./reactToCss";
-import { cssToReact } from "./cssToReact";
+import { reactToCss } from "./react2css";
+import { cssToReact } from "./css2react";
 import { splitEntry, camelCaseToDash } from "./helpers";
 
 // TODO:
@@ -99,4 +99,4 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 // this method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() { }

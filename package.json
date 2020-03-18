@@ -6,6 +6,7 @@
     "version": "0.0.9",
     "publisher": "gottfired",
     "homepage": "https://github.com/gottfired/css2react/blob/master/README.md",
+    "license": "MIT",
     "repository": {
         "type": "git",
         "url": "https://github.com/gottfired/css2react.git"
