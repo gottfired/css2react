@@ -6,6 +6,11 @@ export function getQuotes() {
     return config.singleQuotes ? "'" : '"';
 }
 
+export function shouldQuoteFontWeight() {
+    const config = vscode.workspace.getConfiguration("css2react");
+    return config.isFontWeightString;
+}
+
 /**
  * Split selection into part before the actual style entries, the style entries
  * and the stuff after. So users don't have to be that specific with their selection

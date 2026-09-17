@@ -44,6 +44,11 @@
                     "type": "boolean",
                     "default": false,
                     "markdownDescription": "Use single instead of double quotes"
+                },
+                "css2react.isFontWeightString": {
+                    "type": "boolean",
+                    "default": false,
+                    "markdownDescription": "Wrap numeric font weight values in quotes (for React Native)"
                 }
             }
         }
