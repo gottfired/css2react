@@ -1,5 +1,6 @@
 import {
     getQuotes,
+    shouldQuoteFontWeight,
     splitPreMiddlePost,
     splitEntry,
     joinLine,
@@ -19,6 +20,7 @@ export function cssToReact(text: string): string {
     console.log("### middle", middle);
 
     const QUOTES = getQuotes();
+    const forceFontWeightQuotes = shouldQuoteFontWeight();
     const entries = middle.split(";");
     const converted = entries
         .map(entry => {
@@ -36,7 +38,7 @@ export function cssToReact(text: string): string {
             right = right.replace(/[\"']/g, "");
 
             // Add quotes on right if not a number
-            if (isNaN(Number(right))) {
+            if (isNaN(Number(right)) || (forceFontWeightQuotes && left.trim() === "fontWeight")) {
                 right = ` ${QUOTES}${right}${QUOTES}`;
             }
 
